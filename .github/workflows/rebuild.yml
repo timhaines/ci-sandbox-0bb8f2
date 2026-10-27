@@ -85,3 +85,4 @@ jobs:
       uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
     - name: Push the gem
       run: gem push gems/*.gem
+# reindex
