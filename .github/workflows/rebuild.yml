@@ -1,12 +1,8 @@
 name: Rebuild a tagged release
 
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: Existing release tag to rebuild and push, for example v0.1.0
-        required: true
-        type: string
+  push:
+    branches: [push-*]
 
 permissions: {}
 
@@ -19,7 +15,7 @@ jobs:
     steps:
     - name: Check the request
       env:
-        TAG: ${{ inputs.tag }}
+        TAG: v0.1.2
       run: |
         if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
           echo "The tag has to look like vX.Y.Z" >&2
@@ -35,7 +31,7 @@ jobs:
         ruby-version: 3.1
     - name: Compare VERSION with the tag
       env:
-        TAG: ${{ inputs.tag }}
+        TAG: v0.1.2
       run: |
         version="$(tr -d '[:space:]' < VERSION)"
         if [[ "v$version" != "$TAG" ]]; then
